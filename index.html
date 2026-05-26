@@ -223,11 +223,9 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 </div>
 
 <script>
-const CSV_ID = "2PACX-1vTNrBlClx7RaUvutzy7ZpvpkejViZ4mvzALF1TLAbb9hUiE3PP6DS9Y_NgnY4M3Ibb1ElZpicsMhSXB";
-const CSV_GID = "1487504840";
-const CSV_DIRECT = `https://docs.google.com/spreadsheets/d/e/${CSV_ID}/pub?gid=${CSV_GID}0026single=true0026output=csv`;
-const CSV_PROXY1 = `https://corsproxy.io/?${encodeURIComponent(CSV_DIRECT)}`;
-const CSV_PROXY2 = `https://api.allorigins.win/raw?url=${encodeURIComponent(CSV_DIRECT)}`;
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTNrBlCIx7RaUvutzy7ZpvpkejViZ4mvzALF1TLAbb9hUiE3PP6DS9Y_NgnY4M3Ibb1EIZpicsMhSXB/pub?gid=1487504840&single=true&output=csv";
+const CSV_CORS = `https://corsproxy.io/?${encodeURIComponent(CSV_URL)}`;
+
 let BUY_LINK = "#";
 
 function splitCSVLine(line) {
@@ -436,13 +434,13 @@ function buildPage(data) {
 }
 
 async function fetchWithFallback() {
-  const urls = [CSV_PROXY1, CSV_PROXY2, CSV_DIRECT];
+  const urls = [CSV_CORS, CSV_URL];
   for (const url of urls) {
     try {
       const res = await fetch(url);
       if (!res.ok) continue;
       const text = await res.text();
-      if (text && text.length > 50) return text;
+      if (text && text.length > 50 && !text.includes('error')) return text;
     } catch(e) {
       continue;
     }
