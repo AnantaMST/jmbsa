@@ -7,11 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Cormorant+Garamond:wght@300;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --gold:#c9a84c;--gold-light:#e8c97a;--dark:#0a0a0a;
-  --text:#f0e9d6;--text-dim:rgba(240,233,214,0.65);--text-faint:rgba(240,233,214,0.4);
-  --border:rgba(201,168,76,0.18);--border-bright:rgba(201,168,76,0.35);
-}
+:root{--gold:#c9a84c;--gold-light:#e8c97a;--dark:#0a0a0a;--text:#f0e9d6;--text-dim:rgba(240,233,214,0.65);--text-faint:rgba(240,233,214,0.4);--border:rgba(201,168,76,0.18);--border-bright:rgba(201,168,76,0.35);}
 body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
 .wrap{max-width:430px;margin:0 auto;}
 #loading{position:fixed;inset:0;background:var(--dark);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
@@ -20,14 +16,16 @@ body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;line
 .load-bar::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--gold);animation:loadslide 1.2s ease-in-out infinite;}
 @keyframes loadslide{to{left:100%;}}
 .load-sub{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-faint);}
+.whatsapp-btn{position:fixed;bottom:20px;right:20px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,0.3);transition:transform 0.2s;text-decoration:none;}
+.whatsapp-btn:hover{transform:scale(1.1);}
+.whatsapp-btn svg{width:28px;height:28px;}
 .banner-wrap{position:relative;width:100%;overflow:hidden;height:200px;background:#111;}
 .banner-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;}
 .banner-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.05) 0%,rgba(10,10,10,0.65) 80%,var(--dark) 100%);}
 .banner-logo{position:absolute;bottom:14px;left:0;right:0;text-align:center;}
 .banner-logo-text{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
 .banner-logo-sub{font-family:'Cormorant Garamond',serif;font-size:0.75rem;font-weight:300;color:rgba(240,233,214,0.55);letter-spacing:2px;display:block;margin-top:2px;}
-.banner-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#111 0%,#1a1506 100%);}
-.banner-placeholder span{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;}
+.banner-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#111 0%,#1a1506 100%);font-size:3rem;}
 .nav{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0.7rem 1.2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);}
 .nav-logo{font-family:'Playfair Display',serif;font-size:0.85rem;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;}
 .nav-btn{background:var(--gold);color:var(--dark);border:none;padding:0.45rem 1rem;font-family:'Lato',sans-serif;font-weight:700;font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px;cursor:pointer;}
@@ -54,13 +52,20 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 .divider{width:36px;height:1px;background:var(--gold);margin:0.8rem auto 0;}
 .mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
 .mod-item{display:flex;flex-direction:column;}
-.mod-img-wrap{width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:4px;background:#111;position:relative;}
+.mod-img-wrap{width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:4px;background:#111;position:relative;cursor:pointer;}
 .mod-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease;}
 .mod-item:hover .mod-img-wrap img{transform:scale(1.04);}
 .mod-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#141414,#1c1500);font-size:1.8rem;}
 .mod-info{padding:0.6rem 0 0;}
 .mod-t{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--gold);line-height:1.25;margin-bottom:0.2rem;}
 .mod-d{font-size:0.72rem;color:rgba(240,233,214,0.5);font-weight:300;line-height:1.4;}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:200;align-items:center;justify-content:center;padding:20px;}
+.modal.open{display:flex;}
+.modal-content{position:relative;width:100%;max-width:90vw;max-height:90vh;overflow:auto;}
+.modal-close{position:absolute;top:10px;right:15px;font-size:2rem;color:var(--gold);cursor:pointer;background:none;border:none;z-index:201;}
+.modal-img{width:100%;height:auto;display:block;margin-bottom:1rem;border-radius:4px;}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;}
+.modal-desc{font-size:0.9rem;color:var(--text-dim);line-height:1.7;}
 .bonus-sec{padding:2rem 1.2rem;background:rgba(201,168,76,0.025);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .bonus-list{list-style:none;margin-top:1.4rem;}
 .bonus-list li{display:flex;align-items:flex-start;gap:10px;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.07);font-size:0.82rem;color:rgba(240,233,214,0.75);}
@@ -81,19 +86,20 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 .me{font-size:1.4rem;margin-bottom:0.4rem;display:block;}
 .ml{font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-weight:600;color:var(--gold);display:block;margin-bottom:0.15rem;}
 .ms{font-size:0.7rem;color:var(--text-faint);font-weight:300;}
-.pricing{padding:2rem 1.2rem;text-align:center;}
-.price-card{border:1px solid var(--border-bright);padding:2rem 1.2rem;position:relative;background:rgba(201,168,76,0.025);margin-top:1.6rem;}
+.pricing-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;margin-top:1.6rem;}
+.price-card{border:1px solid var(--border-bright);padding:2rem 1.2rem;position:relative;background:rgba(201,168,76,0.025);border-radius:4px;}
+.price-card.featured{border:2px solid var(--gold);background:rgba(201,168,76,0.08);}
 .price-card::before{content:'';position:absolute;top:-1px;left:25%;right:25%;height:2px;background:var(--gold);}
 .pbadge{background:var(--gold);color:var(--dark);font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:4px 12px;display:inline-block;margin-bottom:1.2rem;border-radius:2px;}
-.pamt{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;color:var(--text);line-height:1;}
-.pamt sup.curr{font-size:1.3rem;vertical-align:super;color:var(--gold);}
-.pamt sup.cents{font-size:1.2rem;vertical-align:super;color:var(--gold-light);}
-.pper{font-size:0.72rem;color:var(--text-faint);letter-spacing:1.5px;text-transform:uppercase;margin-top:0.3rem;}
+.pbadge.featured{background:var(--gold-light);}
+.pamt{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:var(--text);line-height:1;display:flex;align-items:flex-start;}
+.pamt sup{font-size:1rem;color:var(--gold);margin-right:3px;}
+.pper{font-size:0.72rem;color:var(--text-faint);letter-spacing:1px;text-transform:uppercase;margin-top:0.3rem;}
+.psave{font-size:0.75rem;color:var(--gold);font-weight:700;margin-top:0.6rem;display:block;}
 .pdiv{width:28px;height:1px;background:rgba(201,168,76,0.3);margin:1.2rem auto;}
 .pfeats{list-style:none;text-align:left;margin-bottom:1.6rem;}
 .pfeats li{padding:0.4rem 0;font-size:0.8rem;color:rgba(240,233,214,0.7);display:flex;gap:8px;border-bottom:1px solid rgba(201,168,76,0.07);}
 .pchk{color:var(--gold);flex-shrink:0;}
-.guar{font-size:0.7rem;color:var(--text-faint);margin-top:0.9rem;}
 .faq{padding:2rem 1.2rem;border-top:1px solid var(--border);}
 .faq-item{border-bottom:1px solid var(--border);}
 .faq-q{width:100%;background:none;border:none;color:var(--text);font-family:'Lato',sans-serif;font-size:0.85rem;font-weight:700;padding:1rem 0;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;line-height:1.4;}
@@ -114,10 +120,12 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
   <div class="load-sub">Cargando contenido...</div>
 </div>
 
+<div id="whatsapp-btn-container"></div>
+
 <div class="wrap" id="page" style="display:none;">
 
   <div class="banner-wrap" id="banner-wrap">
-    <div class="banner-placeholder"><span id="banner-fallback-text">JM Skills Academy</span></div>
+    <div class="banner-placeholder">🖼️</div>
     <div class="banner-overlay"></div>
     <div class="banner-logo">
       <div class="banner-logo-text" id="banner-logo-display"></div>
@@ -126,8 +134,8 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
   </div>
 
   <nav class="nav">
-    <div class="nav-logo" id="nav-logo">JM Skills</div>
-    <button class="nav-btn" id="nav-btn" onclick="goTo('pricing-sec')">Unirme</button>
+    <div class="nav-logo" id="nav-logo"></div>
+    <button class="nav-btn" id="nav-btn" onclick="goTo('pricing-sec')"></button>
   </nav>
 
   <section class="hero">
@@ -154,6 +162,8 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
     </div>
     <div class="mod-grid" id="mod-grid"></div>
   </section>
+
+  <div id="modal-container"></div>
 
   <section class="bonus-sec">
     <div class="sec-hd">
@@ -195,15 +205,7 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
     <span class="sec-eye" id="price-eye"></span>
     <h2 class="sec-title"><span id="price-t1"></span> <em id="price-t2"></em></h2>
     <div class="divider"></div>
-    <div class="price-card">
-      <div class="pbadge" id="pbadge"></div>
-      <div class="pamt"><sup class="curr" id="psym"></sup><span id="pmonto"></span><sup class="cents" id="pcents"></sup></div>
-      <div class="pper" id="pper"></div>
-      <div class="pdiv"></div>
-      <ul class="pfeats" id="pfeats"></ul>
-      <button class="btn-p" id="buy-btn" style="margin-bottom:0;" onclick="handleBuy()"></button>
-      <p class="guar" id="pguar"></p>
-    </div>
+    <div class="pricing-grid" id="pricing-grid"></div>
   </section>
 
   <section class="faq">
@@ -225,8 +227,6 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTNrBlCIx7RaUvutzy7ZpvpkejViZ4mvzALF1TLAbb9hUiE3PP6DS9Y_NgnY4M3Ibb1EIZpicsMhSXB/pub?gid=1487504840&single=true&output=csv";
 const CSV_CORS = `https://corsproxy.io/?${encodeURIComponent(CSV_URL)}`;
-
-let BUY_LINK = "#";
 
 function splitCSVLine(line) {
   const res = []; let cur = '', inQ = false;
@@ -259,7 +259,6 @@ function g(data, sec, campo)     { const e = data[sec+'|'+campo]; return e ? e.v
 function gl(data, sec, campo)    { const e = data[sec+'|'+campo]; return e ? e.link  : ''; }
 function set(id, val)            { const e = document.getElementById(id); if (e && val) e.textContent = val; }
 function goTo(id)                { const e = document.getElementById(id); if (e) e.scrollIntoView({behavior:'smooth'}); }
-function handleBuy()             { if (BUY_LINK !== '#') window.open(BUY_LINK,'_blank'); else goTo('pricing-sec'); }
 function isPlaceholder(s)        { return !s || s.includes('PON AQUI') || s.includes('tu-link'); }
 
 function tog(btn) {
@@ -270,42 +269,59 @@ function tog(btn) {
   arr.textContent = open ? '－' : '＋';
 }
 
+function openModal(modNum) {
+  document.getElementById('modal-'+modNum).classList.add('open');
+}
+
+function closeModal(modNum) {
+  document.getElementById('modal-'+modNum).classList.remove('open');
+}
+
 function buildPage(data) {
+
+  // WHATSAPP
+  const wpNum = g(data,'WHATSAPP','numero');
+  const wpMsg = encodeURIComponent(g(data,'WHATSAPP','mensaje'));
+  const wpVis = (g(data,'WHATSAPP','visible') || 'si').toLowerCase() === 'si';
+  
+  if (wpVis && wpNum) {
+    const wpLink = `https://wa.me/${wpNum.replace(/[^0-9+]/g,'')}?text=${wpMsg}`;
+    document.getElementById('whatsapp-btn-container').innerHTML = `
+      <a href="${wpLink}" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.255.949c-1.238.505-2.437 1.256-3.355 2.172a9.916 9.916 0 00-2.172 3.355 9.87 9.87 0 00-.949 4.255c0 2.563.823 5.051 2.347 7.152l-.354 3.285c-.114 1.06.891 1.906 1.838 1.454l3.285-1.693a9.873 9.873 0 003.355.949h.004c5.459 0 9.887-4.428 9.887-9.887 0-2.563-.823-5.051-2.347-7.152 1.524 2.101 2.347 4.589 2.347 7.152 0 5.459-4.428 9.887-9.887 9.887a9.873 9.873 0 01-3.355-.949l-3.285 1.693c-.947.452-1.952-.394-1.838-1.454l.354-3.285A9.916 9.916 0 012.172 12.255a9.87 9.87 0 01.949-4.255 9.916 9.916 0 012.172-3.355 9.87 9.87 0 013.355-2.172 9.87 9.87 0 014.255-.949c5.459 0 9.887 4.428 9.887 9.887 0 2.563-.823 5.051-2.347 7.152-1.524-2.101-2.347-4.589-2.347-7.152 0-5.459 4.428-9.887 9.887-9.887z"/></svg>
+      </a>`;
+  }
 
   // BANNER
   const bLink = gl(data,'BANNER','imagen_banner');
   const bw = document.getElementById('banner-wrap');
   if (!isPlaceholder(bLink)) {
-    bw.innerHTML = `<img src="${bLink}" alt="Banner" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;"/>
+    bw.innerHTML = `<img src="${bLink}" alt="Banner" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;" onerror="this.parentElement.innerHTML='<div style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#111 0%,#1a1506 100%);font-size:3rem;\">🖼️</div>'"/>
     <div class="banner-overlay"></div>
     <div class="banner-logo">
       <div class="banner-logo-text">${g(data,'BANNER','logo_sobre_banner')}</div>
       <span class="banner-logo-sub">${g(data,'BANNER','subtitulo_banner')}</span>
     </div>`;
   } else {
-    set('banner-logo-display',   g(data,'BANNER','logo_sobre_banner') || 'JM Skills Academy');
-    set('banner-sub-display',    g(data,'BANNER','subtitulo_banner')  || 'Academia Profesional de Lashes');
-    set('banner-fallback-text',  g(data,'BANNER','logo_sobre_banner') || 'JM Skills Academy');
+    set('banner-logo-display', g(data,'BANNER','logo_sobre_banner') || 'JM Skills Academy');
+    set('banner-sub-display',  g(data,'BANNER','subtitulo_banner')  || 'Academia Profesional de Lashes');
   }
 
-  // NAV
   set('nav-logo', g(data,'NAVEGACION','logo_texto'));
   set('nav-btn',  g(data,'NAVEGACION','boton_texto'));
-
-  // HERO
   set('hero-eyebrow', g(data,'HERO','eyebrow_texto'));
   set('hero-t1',      g(data,'HERO','titulo_linea1'));
   set('hero-t2',      g(data,'HERO','titulo_linea2'));
   set('hero-sub',     g(data,'HERO','subtitulo'));
   set('btn-main',     g(data,'HERO','boton_principal'));
   set('btn-sec',      g(data,'HERO','boton_secundario'));
+  
   const pw = document.getElementById('pills-wrap');
   ['pill_1','pill_2','pill_3'].forEach(p => {
     const v = g(data,'HERO',p);
     if (v) pw.innerHTML += `<span class="pill">${v}</span>`;
   });
 
-  // STATS
   set('s1n', g(data,'ESTADISTICAS','stat1_numero'));
   set('s1l', g(data,'ESTADISTICAS','stat1_label'));
   set('s2n', g(data,'ESTADISTICAS','stat2_numero'));
@@ -316,14 +332,15 @@ function buildPage(data) {
   set('s4n', s4 === 'inf' ? '∞' : (s4 || '∞'));
   set('s4l', g(data,'ESTADISTICAS','stat4_label'));
 
-  // MODULOS TITULO
   set('mod-eye', g(data,'MODULOS_TITULO','eyebrow'));
   set('mod-t1',  g(data,'MODULOS_TITULO','titulo_parte1'));
   set('mod-t2',  g(data,'MODULOS_TITULO','titulo_parte2'));
 
-  // MODULOS GRID
   const mg = document.getElementById('mod-grid');
+  const mc = document.getElementById('modal-container');
   mg.innerHTML = '';
+  mc.innerHTML = '';
+  
   const fallbackEmoji = ['💎','🎨','🛡️','👑','💰','📲'];
   for (let i = 1; i <= 6; i++) {
     const sec   = 'MODULO_' + i;
@@ -331,8 +348,9 @@ function buildPage(data) {
     const titulo = g(data, sec, 'titulo');
     const desc   = g(data, sec, 'descripcion');
     const imgHTML = !isPlaceholder(img)
-      ? `<img src="${img}" alt="${titulo}" loading="lazy"/>`
-      : `<div class="mod-img-placeholder">${fallbackEmoji[i-1]}</div>`;
+      ? `<img src="${img}" alt="${titulo}" loading="lazy" onclick="openModal(${i})" style="cursor:pointer;"/>`
+      : `<div class="mod-img-placeholder" onclick="openModal(${i})" style="cursor:pointer;">${fallbackEmoji[i-1]}</div>`;
+    
     mg.innerHTML += `
       <div class="mod-item">
         <div class="mod-img-wrap">${imgHTML}</div>
@@ -341,12 +359,22 @@ function buildPage(data) {
           <div class="mod-d">${desc}</div>
         </div>
       </div>`;
+    
+    mc.innerHTML += `
+      <div class="modal" id="modal-${i}">
+        <div class="modal-content">
+          <button class="modal-close" onclick="closeModal(${i})">✕</button>
+          ${!isPlaceholder(img) ? `<img src="${img}" alt="${titulo}" class="modal-img"/>` : ''}
+          <h2 class="modal-title">${titulo}</h2>
+          <p class="modal-desc">${desc}</p>
+        </div>
+      </div>`;
   }
 
-  // RECURSOS
   set('rec-eye', g(data,'RECURSOS_TITULO','eyebrow'));
   set('rec-t1',  g(data,'RECURSOS_TITULO','titulo_parte1'));
   set('rec-t2',  g(data,'RECURSOS_TITULO','titulo_parte2'));
+  
   const rl = document.getElementById('recursos-list');
   rl.innerHTML = '';
   for (let i = 1; i <= 10; i++) {
@@ -354,22 +382,22 @@ function buildPage(data) {
     if (t) rl.innerHTML += `<li><span class="bc">✦</span>${t}</li>`;
   }
 
-  // INSTRUCTORA TITULO
   set('ins-eye', g(data,'INSTRUCTORA_TITULO','eyebrow'));
   set('ins-t1',  g(data,'INSTRUCTORA_TITULO','titulo_parte1'));
   set('ins-t2',  g(data,'INSTRUCTORA_TITULO','titulo_parte2'));
 
-  // INSTRUCTORA
   const fLink = gl(data,'INSTRUCTORA','foto');
   if (!isPlaceholder(fLink)) {
     document.getElementById('instr-photo-wrap').innerHTML =
       `<img class="instr-photo" src="${fLink}" alt="Jennyfer Montilla"/>`;
   }
+  
   set('instr-name', g(data,'INSTRUCTORA','nombre'));
   set('instr-role', g(data,'INSTRUCTORA','rol'));
   set('instr-bio1', g(data,'INSTRUCTORA','bio_1'));
   set('instr-bio2', g(data,'INSTRUCTORA','bio_2'));
   set('instr-bio3', g(data,'INSTRUCTORA','bio_3'));
+  
   const ct = document.getElementById('cert-tags');
   ct.innerHTML = '';
   for (let i = 1; i <= 8; i++) {
@@ -377,10 +405,10 @@ function buildPage(data) {
     if (c) ct.innerHTML += `<span class="ctag">${c}</span>`;
   }
 
-  // MODALIDAD
   set('mod2-eye', g(data,'MODALIDAD_TITULO','eyebrow'));
   set('mod2-t1',  g(data,'MODALIDAD_TITULO','titulo_parte1'));
   set('mod2-t2',  g(data,'MODALIDAD_TITULO','titulo_parte2'));
+  
   const mog = document.getElementById('modes-grid');
   mog.innerHTML = '';
   for (let i = 1; i <= 4; i++) {
@@ -392,43 +420,63 @@ function buildPage(data) {
     </div>`;
   }
 
-  // PRECIO
-  set('price-eye', g(data,'PRECIO_TITULO','eyebrow'));
-  set('price-t1',  g(data,'PRECIO_TITULO','titulo_parte1'));
-  set('price-t2',  g(data,'PRECIO_TITULO','titulo_parte2'));
-  set('pbadge',    g(data,'PRECIO','badge_texto'));
-  set('psym',      g(data,'PRECIO','simbolo'));
-  set('pmonto',    g(data,'PRECIO','monto'));
-  set('pcents',    g(data,'PRECIO','centavos'));
-  set('pper',      g(data,'PRECIO','periodo_texto'));
-  set('pguar',     g(data,'PRECIO','garantia_texto'));
-  set('buy-btn',   g(data,'PRECIO','boton_texto'));
-  const lnk = g(data,'PRECIO','link_compra');
-  if (!isPlaceholder(lnk)) BUY_LINK = lnk;
-  const pf = document.getElementById('pfeats');
-  pf.innerHTML = '';
-  for (let i = 1; i <= 8; i++) {
-    const f = g(data,'PRECIO','feature_'+i);
-    if (f) pf.innerHTML += `<li><span class="pchk">✦</span>${f}</li>`;
-  }
+  set('price-eye', g(data,'PLANES_TITULO','eyebrow'));
+  set('price-t1',  g(data,'PLANES_TITULO','titulo_parte1'));
+  set('price-t2',  g(data,'PLANES_TITULO','titulo_parte2'));
 
-  // FAQ
+  const pg = document.getElementById('pricing-grid');
+  pg.innerHTML = '';
+  
+  const planes = ['PLAN_CUOTAS', 'PLAN_MENSUAL', 'PLAN_ANUAL'];
+  planes.forEach((plan, idx) => {
+    const nombre = g(data, plan, 'nombre');
+    const precio = g(data, plan, 'precio');
+    const periodo = g(data, plan, 'periodo');
+    const ahorro = g(data, plan, 'ahorro');
+    const f1 = g(data, plan, 'feature_1');
+    const f2 = g(data, plan, 'feature_2');
+    const f3 = g(data, plan, 'feature_3');
+    const btnTxt = g(data, plan, 'boton_texto');
+    const link = g(data, plan, 'link_compra');
+    
+    const isFeatured = idx === 1;
+    const cardClass = isFeatured ? 'price-card featured' : 'price-card';
+    const badgeClass = isFeatured ? 'pbadge featured' : 'pbadge';
+    
+    pg.innerHTML += `
+      <div class="${cardClass}">
+        <div class="${badgeClass}">${nombre}</div>
+        <div class="pamt"><sup>$</sup>${precio}</div>
+        <div class="pper">${periodo}</div>
+        ${ahorro ? `<span class="psave">✦ ${ahorro}</span>` : ''}
+        <div class="pdiv"></div>
+        <ul class="pfeats">
+          <li><span class="pchk">✦</span>${f1}</li>
+          <li><span class="pchk">✦</span>${f2}</li>
+          <li><span class="pchk">✦</span>${f3}</li>
+        </ul>
+        <button class="btn-p" onclick="${!isPlaceholder(link) ? `window.open('${link}','_blank')` : `alert('Link no configurado')`}" style="margin-bottom:0;">${btnTxt}</button>
+      </div>`;
+  });
+
   set('faq-eye', g(data,'FAQ_TITULO','eyebrow'));
   set('faq-t1',  g(data,'FAQ_TITULO','titulo_parte1'));
   set('faq-t2',  g(data,'FAQ_TITULO','titulo_parte2'));
+  
   const fl = document.getElementById('faq-list');
   fl.innerHTML = '';
   for (let i = 1; i <= 8; i++) {
     const q = g(data,'FAQ_'+i,'pregunta');
     const a = g(data,'FAQ_'+i,'respuesta');
-    if (q && a) fl.innerHTML += `
-      <div class="faq-item">
-        <button class="faq-q" onclick="tog(this)">${q}<span class="arr">＋</span></button>
-        <div class="faq-a">${a}</div>
-      </div>`;
+    if (q && a) {
+      fl.innerHTML += `
+        <div class="faq-item">
+          <button class="faq-q" onclick="tog(this)">${q}<span class="arr">＋</span></button>
+          <div class="faq-a">${a}</div>
+        </div>`;
+    }
   }
 
-  // FOOTER
   set('footer-logo', g(data,'FOOTER','logo_texto'));
   set('footer-tag',  g(data,'FOOTER','tagline'));
 }
@@ -454,10 +502,10 @@ async function init() {
     if (text) {
       buildPage(parseCSV(text));
     } else {
-      console.warn('No se pudo cargar el CSV — mostrando contenido por defecto.');
+      console.warn('No se pudo cargar el CSV');
     }
   } catch(e) {
-    console.error('Error cargando CSV:', e);
+    console.error('Error:', e);
   } finally {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('page').style.display = 'block';
