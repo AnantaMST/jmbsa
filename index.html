@@ -73,7 +73,7 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 .mod-detail-banner{width:100%;height:200px;object-fit:cover;display:block;}
 .mod-detail-body{padding:1.5rem 1.2rem;}
 .mod-detail-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--text);margin-bottom:1rem;}
-.mod-detail-desc{font-size:0.9rem;color:var(--text-dim);line-height:1.8;margin-bottom:2rem;}
+.mod-detail-desc{font-size:0.9rem;color:var(--text-dim);line-height:1.8;margin-bottom:2rem;white-space:pre-wrap;word-wrap:break-word;overflow-wrap:break-word;}
 .mod-detail-cta{background:var(--gold);color:var(--dark);border:none;width:100%;padding:1rem;font-family:'Lato',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;}
 .bonus-sec{padding:2rem 1.2rem;background:rgba(201,168,76,0.025);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .bonus-list{list-style:none;margin-top:1.4rem;}
@@ -456,7 +456,7 @@ function buildPage(data) {
           ${bannerHTML}
           <div class="mod-detail-body">
             <h2 class="mod-detail-title">${titulo}</h2>
-            <p class="mod-detail-desc">${descLarga}</p>
+            <p class="mod-detail-desc">${descLarga.split('\n').map(p => p.trim()).filter(p => p).join('\n\n')}</p>
             <button class="mod-detail-cta" onclick="goToPricing()">Ver Planes y Comprar</button>
           </div>
         </div>
