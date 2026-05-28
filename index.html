@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Cormorant+Garamond:wght@300;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--gold:#c9a84c;--gold-light:#e8c97a;--dark:#0a0a0a;--text:#f0e9d6;--text-dim:rgba(240,233,214,0.65);--text-faint:rgba(240,233,214,0.4);--border:rgba(201,168,76,0.18);--border-bright:rgba(201,168,76,0.35);}
+:root{--gold:#c9a84c;--gold-light:#e8c97a;--dark:#0a0a0a;--text:#f0e9d6;--text-dim:rgba(240,233,214,0.65);--text-faint:rgba(240,233,214,0.4);--border:rgba(201,168,76,0.18);}
 body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;line-height:1.6;font-size:15px;}
 .wrap{max-width:430px;margin:0 auto;}
 #loading{position:fixed;inset:0;background:var(--dark);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
@@ -15,40 +15,39 @@ body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;line
 .load-bar{width:120px;height:1px;background:rgba(201,168,76,0.2);position:relative;overflow:hidden;}
 .load-bar::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--gold);animation:loadslide 1.2s ease-in-out infinite;}
 @keyframes loadslide{to{left:100%;}}
-.load-sub{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-faint);}
 .ticker{width:100%;background:var(--gold);color:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0.5rem 0;border-bottom:1px solid rgba(201,168,76,0.3);}
 .ticker-content{display:flex;animation:tickerScroll 15s linear infinite;gap:2rem;}
 .ticker-item{white-space:nowrap;font-weight:700;font-size:0.9rem;letter-spacing:1px;}
 @keyframes tickerScroll{0%{transform:translateX(100%)} 100%{transform:translateX(-100%)}}
-.whatsapp-btn{position:fixed;bottom:20px;right:20px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,0.3);font-size:28px;text-decoration:none;transition:transform 0.2s;}
+.whatsapp-btn{position:fixed;bottom:20px;right:20px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,0.3);font-size:28px;text-decoration:none;}
 .whatsapp-btn:hover{transform:scale(1.1);}
 .contador-compras{padding:2rem 1.2rem;text-align:center;font-size:0.85rem;color:var(--text-dim);border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(201,168,76,0.02);}
-.contador-numero{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--gold);display:inline-flex;align-items:center;justify-content:center;gap:6px;position:relative;}
-.pulse{width:6px;height:6px;background:#25d366;border-radius:50%;display:inline-block;animation:pulse 2s infinite;}
+.contador-numero{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--gold);display:inline-flex;align-items:center;gap:6px;}
+.pulse{width:6px;height:6px;background:#25d366;border-radius:50%;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 #25d366} 50%{opacity:0.7;box-shadow:0 0 0 6px rgba(37,211,102,0.2)}}
 .banner-wrap{position:relative;width:100%;overflow:hidden;height:200px;background:#111;}
-.banner-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;}
+.banner-wrap img{width:100%;height:100%;object-fit:cover;}
 .banner-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.05) 0%,rgba(10,10,10,0.65) 80%,var(--dark) 100%);}
 .banner-logo{position:absolute;bottom:14px;left:0;right:0;text-align:center;}
 .banner-logo-text{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
 .banner-logo-sub{font-family:'Cormorant Garamond',serif;font-size:0.75rem;font-weight:300;color:rgba(240,233,214,0.55);letter-spacing:2px;display:block;margin-top:2px;}
 .nav{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);padding:0.7rem 1.2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
 .nav-logo{font-family:'Playfair Display',serif;font-size:0.85rem;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;}
-.nav-btn{background:var(--gold);color:var(--dark);border:none;padding:0.45rem 1rem;font-family:'Lato',sans-serif;font-weight:700;font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px;cursor:pointer;}
+.nav-btn{background:var(--gold);color:var(--dark);border:none;padding:0.45rem 1rem;font-weight:700;font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px;cursor:pointer;}
 .hero{padding:1.6rem 1.2rem 1.4rem;border-bottom:1px solid var(--border);}
-.eyebrow{font-size:0.62rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:300;margin-bottom:0.6rem;display:flex;align-items:center;gap:8px;}
-.eyebrow::before,.eyebrow::after{content:'';display:inline-block;width:18px;height:1px;background:var(--gold);}
+.eyebrow{font-size:0.62rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;display:flex;align-items:center;gap:8px;}
+.eyebrow::before,.eyebrow::after{content:'';width:18px;height:1px;background:var(--gold);}
 h1{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;line-height:1.05;color:var(--text);}
 h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 .hero-sub{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:300;color:var(--text-dim);margin:0.9rem 0 1.2rem;}
 .pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.3rem;}
-.pill{border:1px solid var(--border-bright);color:var(--gold);padding:3px 11px;font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;border-radius:20px;}
-.btn-p{background:var(--gold);color:var(--dark);border:none;width:100%;padding:0.9rem;font-family:'Lato',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;margin-bottom:0.6rem;}
-.btn-g{background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,0.45);width:100%;padding:0.75rem;font-family:'Lato',sans-serif;font-size:0.75rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;}
+.pill{border:1px solid rgba(201,168,76,0.35);color:var(--gold);padding:3px 11px;font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;border-radius:20px;}
+.btn-p{background:var(--gold);color:var(--dark);border:none;width:100%;padding:0.9rem;font-weight:700;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;margin-bottom:0.6rem;}
+.btn-g{background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,0.45);width:100%;padding:0.75rem;font-size:0.75rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(201,168,76,0.03);}
 .stat{padding:0.9rem 0.3rem;text-align:center;border-right:1px solid var(--border);}
 .stat:last-child{border-right:none;}
-.sn{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold);display:block;line-height:1;}
+.sn{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold);}
 .sl{font-size:0.55rem;letter-spacing:1px;text-transform:uppercase;color:var(--text-faint);font-weight:300;margin-top:3px;display:block;}
 .sec{padding:2rem 1.2rem;}
 .sec-hd{text-align:center;margin-bottom:1.6rem;}
@@ -59,7 +58,7 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 .mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
 .mod-item{display:flex;flex-direction:column;}
 .mod-img-wrap{width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:4px;background:#111;cursor:pointer;}
-.mod-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease;}
+.mod-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease;}
 .mod-item:hover .mod-img-wrap img{transform:scale(1.04);}
 .mod-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#141414,#1c1500);font-size:1.8rem;}
 .mod-info{padding:0.6rem 0 0;}
@@ -67,23 +66,22 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 .mod-d{font-size:0.72rem;color:rgba(240,233,214,0.5);font-weight:300;line-height:1.4;}
 .mod-detail-page{display:none;position:fixed;inset:0;background:var(--dark);z-index:200;overflow-y:auto;}
 .mod-detail-page.open{display:block;}
-.mod-detail-header{padding:1rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem;position:sticky;top:0;background:var(--dark);z-index:201;}
-.back-btn{background:var(--gold);color:var(--dark);border:none;padding:0.5rem 1rem;font-family:'Lato',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;}
-.mod-detail-content{padding:0;}
+.mod-detail-header{padding:1rem 1.2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--dark);z-index:201;}
+.back-btn{background:var(--gold);color:var(--dark);border:none;padding:0.5rem 1rem;font-weight:700;font-size:0.7rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;}
 .mod-detail-banner{width:100%;height:200px;object-fit:cover;display:block;}
 .mod-detail-body{padding:1.5rem 1.2rem;}
 .mod-detail-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--text);margin-bottom:1rem;}
 .mod-detail-desc{font-size:0.9rem;color:var(--text-dim);line-height:1.8;margin-bottom:2rem;word-wrap:break-word;overflow-wrap:break-word;}
-.mod-detail-cta{background:var(--gold);color:var(--dark);border:none;width:100%;padding:1rem;font-family:'Lato',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;}
+.mod-detail-cta{background:var(--gold);color:var(--dark);border:none;width:100%;padding:1rem;font-weight:700;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;}
 .bonus-sec{padding:2rem 1.2rem;background:rgba(201,168,76,0.025);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .bonus-list{list-style:none;margin-top:1.4rem;}
 .bonus-list li{display:flex;align-items:flex-start;gap:10px;padding:0.65rem 0;border-bottom:1px solid rgba(201,168,76,0.07);font-size:0.82rem;color:rgba(240,233,214,0.75);}
 .bc{color:var(--gold);flex-shrink:0;font-size:0.85rem;margin-top:1px;}
 .instr{padding:2rem 1.2rem;border-top:1px solid var(--border);}
-.instr-card{border:1px solid var(--border-bright);padding:1.5rem 1.2rem;background:rgba(201,168,76,0.025);}
+.instr-card{border:1px solid rgba(201,168,76,0.35);padding:1.5rem 1.2rem;background:rgba(201,168,76,0.025);}
 .instr-card::before{content:'';display:block;width:36px;height:2px;background:var(--gold);margin-bottom:1.2rem;}
 .instr-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);display:block;margin-bottom:1rem;}
-.instr-photo-placeholder{width:80px;height:80px;border-radius:50%;background:rgba(201,168,76,0.1);border:2px solid var(--border-bright);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.5rem;}
+.instr-photo-placeholder{width:80px;height:80px;border-radius:50%;background:rgba(201,168,76,0.1);border:2px solid rgba(201,168,76,0.35);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.5rem;}
 .instr-name{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--text);margin-bottom:0.15rem;}
 .instr-role{font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:300;margin-bottom:1rem;line-height:1.5;}
 .instr-bio{font-size:0.83rem;color:rgba(240,233,214,0.7);line-height:1.75;margin-bottom:0.7rem;}
@@ -96,7 +94,7 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 .ml{font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-weight:600;color:var(--gold);display:block;margin-bottom:0.15rem;}
 .ms{font-size:0.7rem;color:var(--text-faint);}
 .pricing-grid{display:flex;gap:1.2rem;margin-top:1.6rem;overflow-x:auto;padding-bottom:10px;scroll-behavior:smooth;}
-.price-card{border:1px solid var(--border-bright);padding:2rem 1.2rem;position:relative;background:rgba(201,168,76,0.025);border-radius:4px;flex:0 0 calc(100vw - 40px);max-width:380px;}
+.price-card{border:1px solid rgba(201,168,76,0.35);padding:2rem 1.2rem;position:relative;background:rgba(201,168,76,0.025);border-radius:4px;flex:0 0 calc(100vw - 40px);max-width:380px;}
 .price-card.featured{border:2px solid var(--gold);background:rgba(201,168,76,0.08);}
 .pbadge{background:var(--gold);color:var(--dark);font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:4px 12px;display:inline-block;margin-bottom:1.2rem;border-radius:2px;}
 .pamt{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:var(--text);line-height:1;display:flex;align-items:flex-start;}
@@ -109,7 +107,7 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 .pchk{color:var(--gold);flex-shrink:0;}
 .faq{padding:2rem 1.2rem;border-top:1px solid var(--border);}
 .faq-item{border-bottom:1px solid var(--border);}
-.faq-q{width:100%;background:none;border:none;color:var(--text);font-family:'Lato',sans-serif;font-size:0.85rem;font-weight:700;padding:1rem 0;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;line-height:1.4;}
+.faq-q{width:100%;background:none;border:none;color:var(--text);font-size:0.85rem;font-weight:700;padding:1rem 0;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;line-height:1.4;}
 .faq-q .arr{color:var(--gold);font-size:1rem;flex-shrink:0;transition:transform 0.2s;}
 .faq-q.open .arr{transform:rotate(45deg);}
 .faq-a{font-size:0.8rem;color:rgba(240,233,214,0.65);line-height:1.65;padding-bottom:1rem;display:none;}
@@ -135,23 +133,23 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
   <div class="banner-wrap" id="banner-wrap">
     <div class="banner-overlay"></div>
     <div class="banner-logo">
-      <div class="banner-logo-text" id="banner-logo-display">JM Beauty Skills Academy</div>
-      <span class="banner-logo-sub" id="banner-sub-display">Academia Profesional</span>
+      <div class="banner-logo-text">JM Beauty Skills Academy</div>
+      <span class="banner-logo-sub">Academia Profesional</span>
     </div>
   </div>
 
   <nav class="nav">
-    <div class="nav-logo" id="nav-logo">By Jennyfer Montilla</div>
-    <button class="nav-btn" id="nav-btn" onclick="goTo('pricing-sec')">Unirme</button>
+    <div class="nav-logo">By Jennyfer Montilla</div>
+    <button class="nav-btn" onclick="goTo('pricing-sec')">Unirme</button>
   </nav>
 
   <section class="hero">
-    <div class="eyebrow" id="hero-eyebrow">Formacion profesional</div>
-    <h1><span id="hero-t1">Extensiones</span><em id="hero-t2">de Pestañas</em></h1>
-    <p class="hero-sub" id="hero-sub">De principiante a profesional</p>
+    <div class="eyebrow">Formacion profesional</div>
+    <h1><span>Extensiones</span><em>de Pestañas</em></h1>
+    <p class="hero-sub">De principiante a profesional</p>
     <div class="pills" id="pills-wrap"></div>
-    <button class="btn-p" id="btn-main" onclick="goTo('pricing-sec')">Comenzar</button>
-    <button class="btn-g" id="btn-sec" onclick="goTo('modulos-sec')">Ver módulos</button>
+    <button class="btn-p" onclick="goTo('pricing-sec')">Comenzar</button>
+    <button class="btn-g" onclick="goTo('modulos-sec')">Ver módulos</button>
   </section>
 
   <div class="stats">
@@ -174,7 +172,7 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 
   <section class="bonus-sec">
     <div class="sec-hd">
-      <span class="sec-eye">Incluido en tu membresía</span>
+      <span class="sec-eye">Incluido</span>
       <h2 class="sec-title">Recursos <em>exclusivos</em></h2>
       <div class="divider"></div>
     </div>
@@ -183,17 +181,17 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 
   <section class="instr">
     <div class="sec-hd">
-      <span class="sec-eye">¿Quién está detrás?</span>
-      <h2 class="sec-title">Conoce a <em>Tu Master</em></h2>
+      <span class="sec-eye">Tu instructora</span>
+      <h2 class="sec-title">Conoce a <em>Jennyfer</em></h2>
       <div class="divider"></div>
     </div>
     <div class="instr-card">
       <div id="instr-photo-wrap"><div class="instr-photo-placeholder">👩</div></div>
-      <div class="instr-name" id="instr-name">Jennyfer Montilla</div>
-      <div class="instr-role" id="instr-role">Master Especialista</div>
-      <p class="instr-bio" id="instr-bio1">Desde 2017 he perfeccionado técnicas.</p>
-      <p class="instr-bio" id="instr-bio2">Mi pasión es enseñar.</p>
-      <p class="instr-bio" id="instr-bio3">Bienvenida a la academia.</p>
+      <div class="instr-name">Jennyfer Montilla</div>
+      <div class="instr-role">Master Especialista</div>
+      <p class="instr-bio">Desde 2017 perfeccionando técnicas.</p>
+      <p class="instr-bio">Mi pasión es enseñar.</p>
+      <p class="instr-bio">Bienvenida a la academia.</p>
       <span class="certs-label">Certificaciones</span>
       <div class="cert-tags" id="cert-tags"></div>
     </div>
@@ -219,7 +217,7 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 
   <section class="faq">
     <div class="sec-hd">
-      <span class="sec-eye">Preguntas frecuentes</span>
+      <span class="sec-eye">Preguntas</span>
       <h2 class="sec-title">Tus <em>dudas</em></h2>
       <div class="divider"></div>
     </div>
@@ -227,7 +225,7 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
   </section>
 
   <footer class="footer">
-    <div class="fl">JM Beauty Skills Academy</div>
+    <div class="fl">JM BEAUTY SKILLS ACADEMY</div>
     <div class="ft">Tu talento. Tu negocio. Tu libertad.</div>
   </footer>
 
@@ -236,81 +234,160 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTNrBlCIx7RaUvutzy7ZpvpkejViZ4mvzALF1TLAbb9hUiE3PP6DS9Y_NgnY4M3Ibb1EIZpicsMhSXB/pub?gid=1487504840&single=true&output=csv";
 
-function splitCSVLine(line) {
-  const res = []; 
-  let cur = '', inQ = false;
-  for (let i = 0; i < line.length; i++) {
-    const c = line[i];
-    if (c === '"') { inQ = !inQ; continue; }
-    if (c === ',' && !inQ) { res.push(cur.trim()); cur = ''; continue; }
-    cur += c;
-  }
-  res.push(cur.trim());
-  return res;
-}
-
 function parseCSV(text) {
   const data = {};
   const lines = text.split('\n');
-  for (let i = 0; i < lines.length; i++) {
-    const cols = splitCSVLine(lines[i]);
-    if (!cols || cols.length < 2) continue;
-    const sec = (cols[0] || '').trim();
-    const campo = (cols[1] || '').trim();
-    const valor = (cols[2] || '').trim();
-    const link  = (cols[3] || '').trim();
-    if (!sec || !campo || sec.startsWith('==') || sec === 'SECCION') continue;
-    data[sec + '|' + campo] = { valor, link };
+  for (let line of lines) {
+    if (!line.trim() || line.includes('#ERROR')) continue;
+    let cols = [];
+    let current = '';
+    let inQuotes = false;
+    for (let char of line) {
+      if (char === '"') { inQuotes = !inQuotes; continue; }
+      if (char === ',' && !inQuotes) { cols.push(current.trim()); current = ''; }
+      else { current += char; }
+    }
+    cols.push(current.trim());
+    
+    if (cols.length < 2 || !cols[0] || !cols[1]) continue;
+    const sec = cols[0].trim();
+    const campo = cols[1].trim();
+    if (sec === 'SECCION' || sec.startsWith('==')) continue;
+    
+    data[sec + '|' + campo] = { valor: (cols[2] || '').trim(), link: (cols[3] || '').trim() };
   }
   return data;
 }
 
-function g(data, sec, campo) { 
-  const key = sec + '|' + campo;
-  const e = data[key]; 
-  return e ? e.valor : ''; 
-}
-
-function gl(data, sec, campo) { 
-  const key = sec + '|' + campo;
-  const e = data[key]; 
-  return e ? e.link : ''; 
-}
-
-function set(id, val) { 
-  const e = document.getElementById(id); 
-  if (e && val) e.textContent = val; 
-}
-
-function goTo(id) { 
-  const e = document.getElementById(id); 
-  if (e) e.scrollIntoView({behavior:'smooth'}); 
-}
-
-function isPlaceholder(s) { 
-  return !s || s.includes('PON AQUI') || s.includes('tu-link'); 
-}
-
-function countUp(element, target) {
+function g(data, sec, campo) { const e = data[sec + '|' + campo]; return e ? e.valor : ''; }
+function gl(data, sec, campo) { const e = data[sec + '|' + campo]; return e ? e.link : ''; }
+function countUp(el, target) {
   let current = 0;
-  const increment = target / 60;
   const interval = setInterval(() => {
-    current += increment;
-    if (current >= target) {
-      element.textContent = target;
-      clearInterval(interval);
-    } else {
-      element.textContent = Math.floor(current);
-    }
+    current += target / 60;
+    el.textContent = current >= target ? target : Math.floor(current);
+    if (current >= target) clearInterval(interval);
   }, 30);
 }
-
+function goTo(id) { const el = document.getElementById(id); if (el) el.scrollIntoView({behavior: 'smooth'}); }
 function tog(btn) {
   const a = btn.nextElementSibling;
-  const arr = btn.querySelector('.arr');
   const open = a.classList.toggle('open');
   btn.classList.toggle('open', open);
-  arr.textContent = open ? '－' : '＋';
+  btn.querySelector('.arr').textContent = open ? '－' : '＋';
+}
+
+function buildPage(data) {
+  // TICKER
+  const f1 = g(data,'TICKER','frase_1');
+  if (f1) {
+    const grosor = g(data,'TICKER','grosor') || '30';
+    const bg = g(data,'TICKER','color_fondo') || '#c9a84c';
+    const txt = g(data,'TICKER','color_texto') || '#FFF';
+    const f2 = g(data,'TICKER','frase_2');
+    const f3 = g(data,'TICKER','frase_3');
+    document.getElementById('ticker-wrap').innerHTML = `<div class="ticker" style="height:${grosor}px;background:${bg};"><div class="ticker-content" style="color:${txt};"><span class="ticker-item">${f1}</span><span class="ticker-item">${f2}</span><span class="ticker-item">${f3}</span><span class="ticker-item">${f1}</span><span class="ticker-item">${f2}</span><span class="ticker-item">${f3}</span></div></div>`;
+  }
+
+  // CONTADOR
+  const cMin = parseInt(g(data,'CONTADOR','numero_minimo')) || 8;
+  const cMax = parseInt(g(data,'CONTADOR','numero_maximo')) || 19;
+  const cFrase = g(data,'CONTADOR','frase');
+  const cVis = (g(data,'CONTADOR','visible') || 'si').includes('si');
+  if (cVis && cFrase) {
+    const num = Math.floor(Math.random() * (cMax - cMin + 1)) + cMin;
+    document.getElementById('contador-wrap').innerHTML = `<div class="contador-compras"><span class="contador-numero"><span class="pulse"></span>${num}</span> ${cFrase}</div>`;
+  }
+
+  // WHATSAPP
+  const wpNum = g(data,'WHATSAPP','numero');
+  const wpVis = (g(data,'WHATSAPP','visible') || 'si').includes('si');
+  if (wpNum && wpVis) {
+    const wpMsg = encodeURIComponent(g(data,'WHATSAPP','mensaje'));
+    const wpLink = `https://wa.me/${wpNum.replace(/[^0-9+]/g,'')}?text=${wpMsg}`;
+    document.getElementById('whatsapp-btn-container').innerHTML = `<a href="${wpLink}" class="whatsapp-btn" target="_blank">💬</a>`;
+  }
+
+  // BANNER
+  const bImg = gl(data,'BANNER','imagen_banner');
+  if (bImg && !bImg.includes('PON')) {
+    document.getElementById('banner-wrap').innerHTML = `<img src="${bImg}" style="width:100%;height:100%;object-fit:cover;"/><div class="banner-overlay"></div><div class="banner-logo"><div class="banner-logo-text">${g(data,'BANNER','logo_sobre_banner')}</div><span class="banner-logo-sub">${g(data,'BANNER','subtitulo_banner')}</span></div>`;
+  }
+
+  // STATS
+  const s1 = parseInt(g(data,'ESTADISTICAS','stat1_numero')) || 68;
+  const s2 = parseInt(g(data,'ESTADISTICAS','stat2_numero')) || 74;
+  const s3 = parseInt(g(data,'ESTADISTICAS','stat3_numero')) || 7;
+  setTimeout(() => { countUp(document.getElementById('s1n'), s1); countUp(document.getElementById('s2n'), s2); countUp(document.getElementById('s3n'), s3); }, 100);
+
+  // MODULOS
+  const mg = document.getElementById('mod-grid');
+  const mdp = document.getElementById('mod-details-pages');
+  const emoji = ['💎','🎨','🛡️','👑','💰','📲','🌟','✨'];
+  for (let i = 1; i <= 8; i++) {
+    const titulo = g(data, 'MODULO_'+i, 'titulo');
+    if (!titulo) continue;
+    const img = gl(data, 'MODULO_'+i, 'imagen');
+    const desc = g(data, 'MODULO_'+i, 'descripcion_corta');
+    const descL = g(data, 'MODULO_'+i, 'descripcion_larga');
+    const banner = gl(data, 'MODULO_'+i, 'banner');
+    
+    const imgH = img && !img.includes('PON') ? `<img src="${img}" onclick="openModDetail(${i})" style="cursor:pointer;"/>` : `<div class="mod-img-placeholder" onclick="openModDetail(${i})" style="cursor:pointer;">${emoji[i-1]}</div>`;
+    mg.innerHTML += `<div class="mod-item"><div class="mod-img-wrap">${imgH}</div><div class="mod-info"><div class="mod-t">${titulo}</div><div class="mod-d">${desc}</div></div></div>`;
+    
+    const bannerH = banner && !banner.includes('PON') ? `<img src="${banner}" class="mod-detail-banner"/>` : '';
+    mdp.innerHTML += `<div class="mod-detail-page" id="mod-detail-${i}"><div class="mod-detail-header"><button class="back-btn" onclick="closeModDetail(${i})">← Volver</button></div><div class="mod-detail-content">${bannerH}<div class="mod-detail-body"><h2 class="mod-detail-title">${titulo}</h2><p class="mod-detail-desc">${descL}</p><button class="mod-detail-cta" onclick="goToPricing()">Ver Planes</button></div></div></div>`;
+  }
+
+  // RECURSOS
+  const rl = document.getElementById('recursos-list');
+  for (let i = 1; i <= 10; i++) {
+    const t = g(data,'RECURSO_'+i,'texto');
+    if (t) rl.innerHTML += `<li><span class="bc">✦</span>${t}</li>`;
+  }
+
+  // MODALIDAD
+  const mog = document.getElementById('modes-grid');
+  for (let i = 1; i <= 4; i++) {
+    const s = 'MODALIDAD_'+i;
+    mog.innerHTML += `<div class="mode"><span class="me">${g(data,s,'emoji')}</span><span class="ml">${g(data,s,'titulo')}</span><span class="ms">${g(data,s,'subtitulo')}</span></div>`;
+  }
+
+  // PRECIOS
+  const pg = document.getElementById('pricing-grid');
+  const planes = ['PLAN_CUOTAS', 'PLAN_MENSUAL', 'PLAN_ANUAL'];
+  planes.forEach((p, idx) => {
+    const n = g(data, p, 'nombre');
+    if (!n) return;
+    const precio = g(data, p, 'precio');
+    const periodo = g(data, p, 'periodo');
+    const ahorro = g(data, p, 'ahorro');
+    const f1 = g(data, p, 'feature_1');
+    const f2 = g(data, p, 'feature_2');
+    const f3 = g(data, p, 'feature_3');
+    const btn = g(data, p, 'boton_texto');
+    const link = gl(data, p, 'link_compra');
+    
+    const cls = idx === 1 ? 'price-card featured' : 'price-card';
+    pg.innerHTML += `<div class="${cls}"><div class="pbadge">${n}</div><div class="pamt"><sup>$</sup>${precio}</div><div class="pper">${periodo}</div>${ahorro ? `<span class="psave">✦ ${ahorro}</span>` : ''}<div class="pdiv"></div><ul class="pfeats"><li><span class="pchk">✦</span>${f1}</li><li><span class="pchk">✦</span>${f2}</li><li><span class="pchk">✦</span>${f3}</li></ul><button class="btn-p" onclick="${link && !link.includes('PON') ? `window.open('${link}','_blank')` : `alert('Link no configurado')`}">${btn}</button></div>`;
+  });
+
+  // FAQ
+  const fl = document.getElementById('faq-list');
+  for (let i = 1; i <= 8; i++) {
+    const q = g(data,'FAQ_'+i,'pregunta');
+    const a = g(data,'FAQ_'+i,'respuesta');
+    if (q && a) {
+      fl.innerHTML += `<div class="faq-item"><button class="faq-q" onclick="tog(this)">${q}<span class="arr">＋</span></button><div class="faq-a">${a}</div></div>`;
+    }
+  }
+
+  // CERTIFICACIONES
+  const ct = document.getElementById('cert-tags');
+  for (let i = 1; i <= 8; i++) {
+    const c = g(data,'CERTIFICACION_'+i,'texto');
+    if (c) ct.innerHTML += `<span class="ctag">${c}</span>`;
+  }
 }
 
 function openModDetail(num) {
@@ -331,151 +408,21 @@ function goToPricing() {
   goTo('pricing-sec');
 }
 
-function buildPage(data) {
-
-  const loadTxt = g(data,'LOADING','texto_animacion');
-  if (loadTxt) set('load-text', loadTxt);
-
-  const tickerFrase1 = g(data,'TICKER','frase_1');
-  if (tickerFrase1) {
-    const tickerFrase2 = g(data,'TICKER','frase_2');
-    const tickerFrase3 = g(data,'TICKER','frase_3');
-    const tickerGrosor = g(data,'TICKER','grosor') || '30';
-    const tickerColorTxt = g(data,'TICKER','color_texto') || '#FFFFFF';
-    const tickerColorBg = g(data,'TICKER','color_fondo') || '#c9a84c';
-    document.getElementById('ticker-wrap').innerHTML = `<div class="ticker" style="height:${tickerGrosor}px;background:${tickerColorBg};"><div class="ticker-content" style="color:${tickerColorTxt};"><span class="ticker-item">${tickerFrase1}</span><span class="ticker-item">${tickerFrase2}</span><span class="ticker-item">${tickerFrase3}</span><span class="ticker-item">${tickerFrase1}</span><span class="ticker-item">${tickerFrase2}</span><span class="ticker-item">${tickerFrase3}</span></div></div>`;
-  }
-
-  const contadorMin = parseInt(g(data,'CONTADOR','numero_minimo')) || 8;
-  const contadorMax = parseInt(g(data,'CONTADOR','numero_maximo')) || 19;
-  const contadorFrase = g(data,'CONTADOR','frase');
-  const contadorVis = (g(data,'CONTADOR','visible') || 'si').toLowerCase() === 'si';
-  
-  if (contadorVis && contadorFrase) {
-    const randomNum = Math.floor(Math.random() * (contadorMax - contadorMin + 1)) + contadorMin;
-    document.getElementById('contador-wrap').innerHTML = `<div class="contador-compras"><span class="contador-numero"><span class="pulse"></span>${randomNum}</span> ${contadorFrase}</div>`;
-  }
-
-  const wpNum = g(data,'WHATSAPP','numero');
-  if (wpNum) {
-    const wpMsg = encodeURIComponent(g(data,'WHATSAPP','mensaje'));
-    const wpVis = (g(data,'WHATSAPP','visible') || 'si').toLowerCase() === 'si';
-    if (wpVis) {
-      const wpLink = `https://wa.me/${wpNum.replace(/[^0-9+]/g,'')}?text=${wpMsg}`;
-      document.getElementById('whatsapp-btn-container').innerHTML = `<a href="${wpLink}" class="whatsapp-btn" target="_blank">💬</a>`;
-    }
-  }
-
-  const bLink = gl(data,'BANNER','imagen_banner');
-  if (!isPlaceholder(bLink)) {
-    document.getElementById('banner-wrap').innerHTML = `<img src="${bLink}" alt="Banner" style="width:100%;height:100%;object-fit:cover;"/><div class="banner-overlay"></div><div class="banner-logo"><div class="banner-logo-text">${g(data,'BANNER','logo_sobre_banner')}</div><span class="banner-logo-sub">${g(data,'BANNER','subtitulo_banner')}</span></div>`;
-  }
-
-  const s1 = parseInt(g(data,'ESTADISTICAS','stat1_numero')) || 68;
-  const s2 = parseInt(g(data,'ESTADISTICAS','stat2_numero')) || 74;
-  const s3 = parseInt(g(data,'ESTADISTICAS','stat3_numero')) || 7;
-  
-  setTimeout(() => {
-    countUp(document.getElementById('s1n'), s1);
-    countUp(document.getElementById('s2n'), s2);
-    countUp(document.getElementById('s3n'), s3);
-  }, 100);
-
-  const mg = document.getElementById('mod-grid');
-  const mdp = document.getElementById('mod-details-pages');
-  mg.innerHTML = '';
-  mdp.innerHTML = '';
-  
-  const fallbackEmoji = ['💎','🎨','🛡️','👑','💰','📲','🌟','✨'];
-  
-  for (let i = 1; i <= 8; i++) {
-    const sec = 'MODULO_' + i;
-    const img = gl(data, sec, 'imagen');
-    const titulo = g(data, sec, 'titulo');
-    const descCorta = g(data, sec, 'descripcion_corta');
-    const descLarga = g(data, sec, 'descripcion_larga');
-    const banner = gl(data, sec, 'banner');
-    
-    if (!titulo) continue;
-    
-    const imgHTML = !isPlaceholder(img)
-      ? `<img src="${img}" alt="${titulo}" loading="lazy" onclick="openModDetail(${i})"/>`
-      : `<div class="mod-img-placeholder" onclick="openModDetail(${i})">${fallbackEmoji[i-1]}</div>`;
-    
-    mg.innerHTML += `<div class="mod-item"><div class="mod-img-wrap">${imgHTML}</div><div class="mod-info"><div class="mod-t">${titulo}</div><div class="mod-d">${descCorta}</div></div></div>`;
-    
-    const bannerHTML = !isPlaceholder(banner) 
-      ? `<img src="${banner}" alt="${titulo}" class="mod-detail-banner"/>`
-      : '';
-    
-    mdp.innerHTML += `<div class="mod-detail-page" id="mod-detail-${i}"><div class="mod-detail-header"><button class="back-btn" onclick="closeModDetail(${i})">← Volver</button></div><div class="mod-detail-content">${bannerHTML}<div class="mod-detail-body"><h2 class="mod-detail-title">${titulo}</h2><p class="mod-detail-desc">${descLarga}</p><button class="mod-detail-cta" onclick="goToPricing()">Ver Planes y Comprar</button></div></div></div>`;
-  }
-
-  const rl = document.getElementById('recursos-list');
-  rl.innerHTML = '';
-  for (let i = 1; i <= 10; i++) {
-    const t = g(data,'RECURSO_'+i,'texto');
-    if (t) rl.innerHTML += `<li><span class="bc">✦</span>${t}</li>`;
-  }
-
-  const mog = document.getElementById('modes-grid');
-  mog.innerHTML = '';
-  for (let i = 1; i <= 4; i++) {
-    const s = 'MODALIDAD_'+i;
-    mog.innerHTML += `<div class="mode"><span class="me">${g(data,s,'emoji')}</span><span class="ml">${g(data,s,'titulo')}</span><span class="ms">${g(data,s,'subtitulo')}</span></div>`;
-  }
-
-  const pg = document.getElementById('pricing-grid');
-  pg.innerHTML = '';
-  
-  const planes = ['PLAN_CUOTAS', 'PLAN_MENSUAL', 'PLAN_ANUAL'];
-  planes.forEach((plan, idx) => {
-    const nombre = g(data, plan, 'nombre');
-    const precio = g(data, plan, 'precio');
-    const periodo = g(data, plan, 'periodo');
-    const ahorro = g(data, plan, 'ahorro');
-    const f1 = g(data, plan, 'feature_1');
-    const f2 = g(data, plan, 'feature_2');
-    const f3 = g(data, plan, 'feature_3');
-    const btnTxt = g(data, plan, 'boton_texto');
-    const link = g(data, plan, 'link_compra');
-    
-    if (!nombre) return;
-    
-    const isFeatured = idx === 1;
-    const cardClass = isFeatured ? 'price-card featured' : 'price-card';
-    
-    pg.innerHTML += `<div class="${cardClass}"><div class="pbadge">${nombre}</div><div class="pamt"><sup>$</sup>${precio}</div><div class="pper">${periodo}</div>${ahorro ? `<span class="psave">✦ ${ahorro}</span>` : ''}<div class="pdiv"></div><ul class="pfeats"><li><span class="pchk">✦</span>${f1}</li><li><span class="pchk">✦</span>${f2}</li><li><span class="pchk">✦</span>${f3}</li></ul><button class="btn-p" onclick="${!isPlaceholder(link) ? `window.open('${link}','_blank')` : `alert('Link no configurado')`}">${btnTxt}</button></div>`;
-  });
-
-  const fl = document.getElementById('faq-list');
-  fl.innerHTML = '';
-  for (let i = 1; i <= 8; i++) {
-    const q = g(data,'FAQ_'+i,'pregunta');
-    const a = g(data,'FAQ_'+i,'respuesta');
-    if (q && a) {
-      fl.innerHTML += `<div class="faq-item"><button class="faq-q" onclick="tog(this)">${q}<span class="arr">＋</span></button><div class="faq-a">${a}</div></div>`;
-    }
-  }
-}
-
 async function init() {
   try {
     const res = await fetch(CSV_URL);
     if (res.ok) {
       const text = await res.text();
-      if (text && text.length > 50) {
-        buildPage(parseCSV(text));
-      }
+      buildPage(parseCSV(text));
     }
   } catch(e) {
-    console.log('CSV no disponible, usando valores por defecto');
+    console.log('CSV error:', e);
   }
   document.getElementById('loading').style.display = 'none';
   document.getElementById('page').style.display = 'block';
 }
 
-setTimeout(init, 800);
+setTimeout(init, 500);
 </script>
 </body>
 </html>
