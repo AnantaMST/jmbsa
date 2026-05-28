@@ -20,7 +20,7 @@ body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;line
 .ticker-content{display:flex;animation:tickerScroll 15s linear infinite;gap:2rem;}
 .ticker-item{white-space:nowrap;font-weight:700;font-size:0.9rem;letter-spacing:1px;}
 @keyframes tickerScroll{0%{transform:translateX(100%)} 100%{transform:translateX(-100%)}}
-.whatsapp-btn{position:fixed;bottom:20px;right:20px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,0.3);font-size:28px;text-decoration:none;}
+.whatsapp-btn{position:fixed;bottom:20px;right:20px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,0.3);font-size:28px;text-decoration:none;transition:transform 0.2s;}
 .whatsapp-btn:hover{transform:scale(1.1);}
 .contador-compras{padding:2rem 1.2rem;text-align:center;font-size:0.85rem;color:var(--text-dim);border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(201,168,76,0.02);}
 .contador-numero{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--gold);display:inline-flex;align-items:center;justify-content:center;gap:6px;position:relative;}
@@ -131,6 +131,7 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 
   <div id="ticker-wrap"></div>
   <div id="whatsapp-btn-container"></div>
+
   <div class="banner-wrap" id="banner-wrap">
     <div class="banner-overlay"></div>
     <div class="banner-logo">
@@ -234,10 +235,10 @@ h1 em{display:block;font-style:italic;color:var(--gold);font-size:2rem;}
 
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTNrBlCIx7RaUvutzy7ZpvpkejViZ4mvzALF1TLAbb9hUiE3PP6DS9Y_NgnY4M3Ibb1EIZpicsMhSXB/pub?gid=1487504840&single=true&output=csv";
-const CSV_CORS = `https://corsproxy.io/?${encodeURIComponent(CSV_URL)}`;
 
 function splitCSVLine(line) {
-  const res = []; let cur = '', inQ = false;
+  const res = []; 
+  let cur = '', inQ = false;
   for (let i = 0; i < line.length; i++) {
     const c = line[i];
     if (c === '"') { inQ = !inQ; continue; }
@@ -250,24 +251,45 @@ function splitCSVLine(line) {
 
 function parseCSV(text) {
   const data = {};
-  for (const line of text.split('\n')) {
-    const cols = splitCSVLine(line);
+  const lines = text.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    const cols = splitCSVLine(lines[i]);
     if (!cols || cols.length < 2) continue;
-    const sec = cols[0] || '';
-    const campo = cols[1] || '';
-    const valor = cols[2] || '';
-    const link  = cols[3] || '';
+    const sec = (cols[0] || '').trim();
+    const campo = (cols[1] || '').trim();
+    const valor = (cols[2] || '').trim();
+    const link  = (cols[3] || '').trim();
     if (!sec || !campo || sec.startsWith('==') || sec === 'SECCION') continue;
     data[sec + '|' + campo] = { valor, link };
   }
   return data;
 }
 
-function g(data, sec, campo)     { const e = data[sec+'|'+campo]; return e ? e.valor : ''; }
-function gl(data, sec, campo)    { const e = data[sec+'|'+campo]; return e ? e.link  : ''; }
-function set(id, val)            { const e = document.getElementById(id); if (e && val) e.textContent = val; }
-function goTo(id)                { const e = document.getElementById(id); if (e) e.scrollIntoView({behavior:'smooth'}); }
-function isPlaceholder(s)        { return !s || s.includes('PON AQUI') || s.includes('tu-link'); }
+function g(data, sec, campo) { 
+  const key = sec + '|' + campo;
+  const e = data[key]; 
+  return e ? e.valor : ''; 
+}
+
+function gl(data, sec, campo) { 
+  const key = sec + '|' + campo;
+  const e = data[key]; 
+  return e ? e.link : ''; 
+}
+
+function set(id, val) { 
+  const e = document.getElementById(id); 
+  if (e && val) e.textContent = val; 
+}
+
+function goTo(id) { 
+  const e = document.getElementById(id); 
+  if (e) e.scrollIntoView({behavior:'smooth'}); 
+}
+
+function isPlaceholder(s) { 
+  return !s || s.includes('PON AQUI') || s.includes('tu-link'); 
+}
 
 function countUp(element, target) {
   let current = 0;
@@ -302,19 +324,24 @@ function closeModDetail(num) {
 }
 
 function goToPricing() {
-  closeModDetail(currentModNum);
+  const modNum = getCurrentModNum();
+  if (modNum) closeModDetail(modNum);
   goTo('pricing-sec');
 }
 
-let currentModNum = null;
+function getCurrentModNum() {
+  for (let i = 1; i <= 8; i++) {
+    const el = document.getElementById('mod-detail-' + i);
+    if (el && el.classList.contains('open')) return i;
+  }
+  return null;
+}
 
 function buildPage(data) {
 
-  // LOADING TEXT
   const loadTxt = g(data,'LOADING','texto_animacion');
   if (loadTxt) set('load-text', loadTxt);
 
-  // TICKER
   const tickerFrase1 = g(data,'TICKER','frase_1');
   const tickerFrase2 = g(data,'TICKER','frase_2');
   const tickerFrase3 = g(data,'TICKER','frase_3');
@@ -323,21 +350,10 @@ function buildPage(data) {
   const tickerColorBg = g(data,'TICKER','color_fondo') || '#c9a84c';
   
   const tickerWrap = document.getElementById('ticker-wrap');
-  if (tickerFrase1 && tickerFrase2 && tickerFrase3) {
-    tickerWrap.innerHTML = `
-      <div class="ticker" style="height:${tickerGrosor}px;background:${tickerColorBg};">
-        <div class="ticker-content" style="color:${tickerColorTxt};">
-          <span class="ticker-item">${tickerFrase1}</span>
-          <span class="ticker-item">${tickerFrase2}</span>
-          <span class="ticker-item">${tickerFrase3}</span>
-          <span class="ticker-item">${tickerFrase1}</span>
-          <span class="ticker-item">${tickerFrase2}</span>
-          <span class="ticker-item">${tickerFrase3}</span>
-        </div>
-      </div>`;
+  if (tickerFrase1) {
+    tickerWrap.innerHTML = `<div class="ticker" style="height:${tickerGrosor}px;background:${tickerColorBg};"><div class="ticker-content" style="color:${tickerColorTxt};"><span class="ticker-item">${tickerFrase1}</span><span class="ticker-item">${tickerFrase2}</span><span class="ticker-item">${tickerFrase3}</span><span class="ticker-item">${tickerFrase1}</span><span class="ticker-item">${tickerFrase2}</span><span class="ticker-item">${tickerFrase3}</span></div></div>`;
   }
 
-  // CONTADOR
   const contadorMin = parseInt(g(data,'CONTADOR','numero_minimo')) || 8;
   const contadorMax = parseInt(g(data,'CONTADOR','numero_maximo')) || 19;
   const contadorFrase = g(data,'CONTADOR','frase');
@@ -345,47 +361,35 @@ function buildPage(data) {
   
   if (contadorVis && contadorFrase) {
     const randomNum = Math.floor(Math.random() * (contadorMax - contadorMin + 1)) + contadorMin;
-    document.getElementById("contador-wrap").innerHTML = `
-      <div class="contador-compras">
-        <span class="contador-numero"><span class="pulse"></span>${randomNum}</span>
-        ${contadorFrase}
-      </div>`;
+    document.getElementById('contador-wrap').innerHTML = `<div class="contador-compras"><span class="contador-numero"><span class="pulse"></span>${randomNum}</span> ${contadorFrase}</div>`;
   }
 
-  // WHATSAPP
   const wpNum = g(data,'WHATSAPP','numero');
   const wpMsg = encodeURIComponent(g(data,'WHATSAPP','mensaje'));
   const wpVis = (g(data,'WHATSAPP','visible') || 'si').toLowerCase() === 'si';
   
   if (wpVis && wpNum) {
     const wpLink = `https://wa.me/${wpNum.replace(/[^0-9+]/g,'')}?text=${wpMsg}`;
-    document.getElementById('whatsapp-btn-container').innerHTML = `
-      <a href="${wpLink}" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">💬</a>`;
+    document.getElementById('whatsapp-btn-container').innerHTML = `<a href="${wpLink}" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">💬</a>`;
   }
 
-  // BANNER
   const bLink = gl(data,'BANNER','imagen_banner');
   const bw = document.getElementById('banner-wrap');
   if (!isPlaceholder(bLink)) {
-    bw.innerHTML = `<img src="${bLink}" alt="Banner" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;" onerror="this.style.display='none'"/>
-    <div class="banner-overlay"></div>
-    <div class="banner-logo">
-      <div class="banner-logo-text">${g(data,'BANNER','logo_sobre_banner')}</div>
-      <span class="banner-logo-sub">${g(data,'BANNER','subtitulo_banner')}</span>
-    </div>`;
+    bw.innerHTML = `<img src="${bLink}" alt="Banner" style="width:100%;height:100%;object-fit:cover;"/><div class="banner-overlay"></div><div class="banner-logo"><div class="banner-logo-text">${g(data,'BANNER','logo_sobre_banner')}</div><span class="banner-logo-sub">${g(data,'BANNER','subtitulo_banner')}</span></div>`;
   } else {
-    set('banner-logo-display', g(data,'BANNER','logo_sobre_banner') || 'JM Skills Academy');
-    set('banner-sub-display',  g(data,'BANNER','subtitulo_banner')  || 'Academia');
+    set('banner-logo-display', g(data,'BANNER','logo_sobre_banner'));
+    set('banner-sub-display', g(data,'BANNER','subtitulo_banner'));
   }
 
   set('nav-logo', g(data,'NAVEGACION','logo_texto'));
-  set('nav-btn',  g(data,'NAVEGACION','boton_texto'));
+  set('nav-btn', g(data,'NAVEGACION','boton_texto'));
   set('hero-eyebrow', g(data,'HERO','eyebrow_texto'));
-  set('hero-t1',      g(data,'HERO','titulo_linea1'));
-  set('hero-t2',      g(data,'HERO','titulo_linea2'));
-  set('hero-sub',     g(data,'HERO','subtitulo'));
-  set('btn-main',     g(data,'HERO','boton_principal'));
-  set('btn-sec',      g(data,'HERO','boton_secundario'));
+  set('hero-t1', g(data,'HERO','titulo_linea1'));
+  set('hero-t2', g(data,'HERO','titulo_linea2'));
+  set('hero-sub', g(data,'HERO','subtitulo'));
+  set('btn-main', g(data,'HERO','boton_principal'));
+  set('btn-sec', g(data,'HERO','boton_secundario'));
   
   const pw = document.getElementById('pills-wrap');
   ['pill_1','pill_2','pill_3'].forEach(p => {
@@ -393,7 +397,6 @@ function buildPage(data) {
     if (v) pw.innerHTML += `<span class="pill">${v}</span>`;
   });
 
-  // STATS CON ANIMACION
   const s1 = parseInt(g(data,'ESTADISTICAS','stat1_numero')) || 68;
   const s2 = parseInt(g(data,'ESTADISTICAS','stat2_numero')) || 74;
   const s3 = parseInt(g(data,'ESTADISTICAS','stat3_numero')) || 7;
@@ -412,8 +415,8 @@ function buildPage(data) {
   set('s4l', g(data,'ESTADISTICAS','stat4_label'));
 
   set('mod-eye', g(data,'MODULOS_TITULO','eyebrow'));
-  set('mod-t1',  g(data,'MODULOS_TITULO','titulo_parte1'));
-  set('mod-t2',  g(data,'MODULOS_TITULO','titulo_parte2'));
+  set('mod-t1', g(data,'MODULOS_TITULO','titulo_parte1'));
+  set('mod-t2', g(data,'MODULOS_TITULO','titulo_parte2'));
 
   const mg = document.getElementById('mod-grid');
   const mdp = document.getElementById('mod-details-pages');
@@ -423,49 +426,31 @@ function buildPage(data) {
   const fallbackEmoji = ['💎','🎨','🛡️','👑','💰','📲','🌟','✨'];
   
   for (let i = 1; i <= 8; i++) {
-    const sec   = 'MODULO_' + i;
-    const img   = gl(data, sec, 'imagen');
+    const sec = 'MODULO_' + i;
+    const img = gl(data, sec, 'imagen');
     const titulo = g(data, sec, 'titulo');
     const descCorta = g(data, sec, 'descripcion_corta');
     const descLarga = g(data, sec, 'descripcion_larga');
     const banner = gl(data, sec, 'banner');
     
-    const imgHTML = !isPlaceholder(img)
-      ? `<img src="${img}" alt="${titulo}" loading="lazy" onclick="openModDetail(${i})" style="cursor:pointer;"/>`
-      : `<div class="mod-img-placeholder" onclick="openModDetail(${i})" style="cursor:pointer;">${fallbackEmoji[i-1]}</div>`;
+    if (!titulo) continue;
     
-    mg.innerHTML += `
-      <div class="mod-item">
-        <div class="mod-img-wrap">${imgHTML}</div>
-        <div class="mod-info">
-          <div class="mod-t">${titulo}</div>
-          <div class="mod-d">${descCorta}</div>
-        </div>
-      </div>`;
+    const imgHTML = !isPlaceholder(img)
+      ? `<img src="${img}" alt="${titulo}" loading="lazy" onclick="openModDetail(${i})"/>`
+      : `<div class="mod-img-placeholder" onclick="openModDetail(${i})">${fallbackEmoji[i-1]}</div>`;
+    
+    mg.innerHTML += `<div class="mod-item"><div class="mod-img-wrap">${imgHTML}</div><div class="mod-info"><div class="mod-t">${titulo}</div><div class="mod-d">${descCorta}</div></div></div>`;
     
     const bannerHTML = !isPlaceholder(banner) 
-      ? `<img src="${banner}" alt="${titulo}" class="mod-detail-banner" onerror="this.style.display='none'"/>`
+      ? `<img src="${banner}" alt="${titulo}" class="mod-detail-banner"/>`
       : '';
     
-    mdp.innerHTML += `
-      <div class="mod-detail-page" id="mod-detail-${i}">
-        <div class="mod-detail-header">
-          <button class="back-btn" onclick="closeModDetail(${i})">← Volver Atrás</button>
-        </div>
-        <div class="mod-detail-content">
-          ${bannerHTML}
-          <div class="mod-detail-body">
-            <h2 class="mod-detail-title">${titulo}</h2>
-            <p class="mod-detail-desc">${descLarga}</p>
-            <button class="mod-detail-cta" onclick="goToPricing()">Ver Planes y Comprar</button>
-          </div>
-        </div>
-      </div>`;
+    mdp.innerHTML += `<div class="mod-detail-page" id="mod-detail-${i}"><div class="mod-detail-header"><button class="back-btn" onclick="closeModDetail(${i})">← Volver Atrás</button></div><div class="mod-detail-content">${bannerHTML}<div class="mod-detail-body"><h2 class="mod-detail-title">${titulo}</h2><p class="mod-detail-desc">${descLarga}</p><button class="mod-detail-cta" onclick="goToPricing()">Ver Planes y Comprar</button></div></div></div>`;
   }
 
   set('rec-eye', g(data,'RECURSOS_TITULO','eyebrow'));
-  set('rec-t1',  g(data,'RECURSOS_TITULO','titulo_parte1'));
-  set('rec-t2',  g(data,'RECURSOS_TITULO','titulo_parte2'));
+  set('rec-t1', g(data,'RECURSOS_TITULO','titulo_parte1'));
+  set('rec-t2', g(data,'RECURSOS_TITULO','titulo_parte2'));
   
   const rl = document.getElementById('recursos-list');
   rl.innerHTML = '';
@@ -475,13 +460,12 @@ function buildPage(data) {
   }
 
   set('ins-eye', g(data,'INSTRUCTORA_TITULO','eyebrow'));
-  set('ins-t1',  g(data,'INSTRUCTORA_TITULO','titulo_parte1'));
-  set('ins-t2',  g(data,'INSTRUCTORA_TITULO','titulo_parte2'));
+  set('ins-t1', g(data,'INSTRUCTORA_TITULO','titulo_parte1'));
+  set('ins-t2', g(data,'INSTRUCTORA_TITULO','titulo_parte2'));
 
   const fLink = gl(data,'INSTRUCTORA','foto');
   if (!isPlaceholder(fLink)) {
-    document.getElementById('instr-photo-wrap').innerHTML =
-      `<img class="instr-photo" src="${fLink}" alt="Jennyfer Montilla"/>`;
+    document.getElementById('instr-photo-wrap').innerHTML = `<img class="instr-photo" src="${fLink}" alt="Instructora"/>`;
   }
   
   set('instr-name', g(data,'INSTRUCTORA','nombre'));
@@ -498,23 +482,19 @@ function buildPage(data) {
   }
 
   set('mod2-eye', g(data,'MODALIDAD_TITULO','eyebrow'));
-  set('mod2-t1',  g(data,'MODALIDAD_TITULO','titulo_parte1'));
-  set('mod2-t2',  g(data,'MODALIDAD_TITULO','titulo_parte2'));
+  set('mod2-t1', g(data,'MODALIDAD_TITULO','titulo_parte1'));
+  set('mod2-t2', g(data,'MODALIDAD_TITULO','titulo_parte2'));
   
   const mog = document.getElementById('modes-grid');
   mog.innerHTML = '';
   for (let i = 1; i <= 4; i++) {
     const s = 'MODALIDAD_'+i;
-    mog.innerHTML += `<div class="mode">
-      <span class="me">${g(data,s,'emoji')}</span>
-      <span class="ml">${g(data,s,'titulo')}</span>
-      <span class="ms">${g(data,s,'subtitulo')}</span>
-    </div>`;
+    mog.innerHTML += `<div class="mode"><span class="me">${g(data,s,'emoji')}</span><span class="ml">${g(data,s,'titulo')}</span><span class="ms">${g(data,s,'subtitulo')}</span></div>`;
   }
 
   set('price-eye', g(data,'PLANES_TITULO','eyebrow'));
-  set('price-t1',  g(data,'PLANES_TITULO','titulo_parte1'));
-  set('price-t2',  g(data,'PLANES_TITULO','titulo_parte2'));
+  set('price-t1', g(data,'PLANES_TITULO','titulo_parte1'));
+  set('price-t2', g(data,'PLANES_TITULO','titulo_parte2'));
 
   const pg = document.getElementById('pricing-grid');
   pg.innerHTML = '';
@@ -533,27 +513,13 @@ function buildPage(data) {
     
     const isFeatured = idx === 1;
     const cardClass = isFeatured ? 'price-card featured' : 'price-card';
-    const badgeClass = isFeatured ? 'pbadge' : 'pbadge';
     
-    pg.innerHTML += `
-      <div class="${cardClass}">
-        <div class="${badgeClass}">${nombre}</div>
-        <div class="pamt"><sup>$</sup>${precio}</div>
-        <div class="pper">${periodo}</div>
-        ${ahorro ? `<span class="psave">✦ ${ahorro}</span>` : ''}
-        <div class="pdiv"></div>
-        <ul class="pfeats">
-          <li><span class="pchk">✦</span>${f1}</li>
-          <li><span class="pchk">✦</span>${f2}</li>
-          <li><span class="pchk">✦</span>${f3}</li>
-        </ul>
-        <button class="btn-p" onclick="${!isPlaceholder(link) ? `window.open('${link}','_blank')` : `alert('Link no configurado')`}" style="margin-bottom:0;">${btnTxt}</button>
-      </div>`;
+    pg.innerHTML += `<div class="${cardClass}"><div class="pbadge">${nombre}</div><div class="pamt"><sup>$</sup>${precio}</div><div class="pper">${periodo}</div>${ahorro ? `<span class="psave">✦ ${ahorro}</span>` : ''}<div class="pdiv"></div><ul class="pfeats"><li><span class="pchk">✦</span>${f1}</li><li><span class="pchk">✦</span>${f2}</li><li><span class="pchk">✦</span>${f3}</li></ul><button class="btn-p" onclick="${!isPlaceholder(link) ? `window.open('${link}','_blank')` : `alert('Link no configurado')`}">${btnTxt}</button></div>`;
   });
 
   set('faq-eye', g(data,'FAQ_TITULO','eyebrow'));
-  set('faq-t1',  g(data,'FAQ_TITULO','titulo_parte1'));
-  set('faq-t2',  g(data,'FAQ_TITULO','titulo_parte2'));
+  set('faq-t1', g(data,'FAQ_TITULO','titulo_parte1'));
+  set('faq-t2', g(data,'FAQ_TITULO','titulo_parte2'));
   
   const fl = document.getElementById('faq-list');
   fl.innerHTML = '';
@@ -561,48 +527,30 @@ function buildPage(data) {
     const q = g(data,'FAQ_'+i,'pregunta');
     const a = g(data,'FAQ_'+i,'respuesta');
     if (q && a) {
-      fl.innerHTML += `
-        <div class="faq-item">
-          <button class="faq-q" onclick="tog(this)">${q}<span class="arr">＋</span></button>
-          <div class="faq-a">${a}</div>
-        </div>`;
+      fl.innerHTML += `<div class="faq-item"><button class="faq-q" onclick="tog(this)">${q}<span class="arr">＋</span></button><div class="faq-a">${a}</div></div>`;
     }
   }
 
   set('footer-logo', g(data,'FOOTER','logo_texto'));
-  set('footer-tag',  g(data,'FOOTER','tagline'));
-}
-
-async function fetchWithFallback() {
-  const urls = [CSV_CORS, CSV_URL];
-  for (const url of urls) {
-    try {
-      const res = await fetch(url);
-      if (!res.ok) continue;
-      const text = await res.text();
-      if (text && text.length > 50 && !text.includes('error')) return text;
-    } catch(e) {
-      continue;
-    }
-  }
-  return null;
+  set('footer-tag', g(data,'FOOTER','tagline'));
 }
 
 async function init() {
   try {
-    const text = await fetchWithFallback();
-    if (text) {
-      buildPage(parseCSV(text));
-    }
+    const res = await fetch(CSV_URL);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+    buildPage(parseCSV(text));
   } catch(e) {
     console.error('Error:', e);
-  } finally {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('page').style.display = 'block';
   }
 }
 
-init();
+setTimeout(() => {
+  init();
+}, 500);
 </script>
 </body>
 </html>
